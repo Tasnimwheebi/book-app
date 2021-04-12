@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/base.css">
+    <title>Book APP</title>
+</head>
+<body>
+<h1>Search Book</h1>
+
+<form action="/search" method="GET">
+<input type="text" name="book" placeholder="Enter book auther or title">
+<br>
+<label>Title  <input type="radio" value="title" name="bookChoice" required></label>
+<br>
+<label>Author <input type="radio" value="author" name="bookChoice" required></label> 
+<br>
+<button>Go</button>   
+</form>
+
+</body>
+</html>
