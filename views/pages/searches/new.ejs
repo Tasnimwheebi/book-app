@@ -14,8 +14,17 @@
             Best Books!
         </h1>
     </header>
+<h3>Search by Title or Author</h3>
 
-<a href="/searches/new">Search</a>
+<form action="/search" method="POST">
+<input type="text" name="book" placeholder="Enter book auther or title">
+<br>
+<label>Title  <input type="radio" value="title" name="bookChoice" required></label>
+<br>
+<label>Author <input type="radio" value="author" name="bookChoice" required></label> 
+<br>
+<button>Search the Google Book API </button>   
+</form>
 
 </body>
 </html>
