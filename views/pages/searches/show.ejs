@@ -12,15 +12,28 @@
     <section>
         <% booksArr.forEach(book=>{ %>
             <div>
-                <!-- "https://i.imgur.com/J5LVHEL.jpg" -->
-            <img src=<%= book.cover %> alt="book" >
+     
+            <img src="<%= book.cover %>" alt="https://i.imgur.com/J5LVHEL.jpg" >
             <h3><%= book.title %></h3>
             <p><%= book.author %></p>
-            <p><%= book.date %></p>
+    
             <p><%= book.description %></p>
         </div>
+        <div>
+            <form action="/books" method="POST">
+                <input type="hidden" name="image" value="<%= book.cover %>">
+                <input type="hidden" name="title" value="<%= book.title %>">
+                <input type="hidden" name="auther" value="<%= book.author %>">
+                <!-- <input type="hidden" name="date" value="<%= book.date %>"> -->
+                <input type="hidden" name="description" value="<%= book.description %>">
+                <button type="submit">Add this book</button>
+
+            </form>
+        </div>
         <% }) %>
+
     </section>
+
     
 </body>
 </html>
