@@ -78,6 +78,7 @@ function searchHandler (req,res){
 }
 
 function addBookHandler (req , res){
+  // console.log(req.body);
   let {author,title,isbn,image_url,description}=req.body;
   let SQL = 'INSERT INTO books (author,title,isbn,image_url,description) VALUES ($1,$2,$3,$4,$5) RETURNING id;';
   let safeValues =[author,title,isbn,image_url,description];
@@ -97,7 +98,8 @@ app.get('/bookdetails/:id', (req, res)=>{
   console.log(req.params.id);
   client.query(SQL,safeValues)
     .then(result =>{
-      res.render('pages/books/detail', {detailsShow:result.rows});
+      // console.log(result.rows[0]);
+      res.render('pages/books/detail', {detailsShow:result.rows[0]});
     })
     .catch(err=>{
       res.render('pages/error',{error:err});
@@ -117,7 +119,7 @@ function Book (bookData){
   this.title = bookData.volumeInfo.title;
   this.author = bookData.volumeInfo.authors;
   // this.date = bookData.volumeInfo.publishedDate;
-  this.cover =( bookData.volumeInfo.imageLinks) ? bookData.volumeInfo.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
+  this.image_url =( bookData.volumeInfo.imageLinks) ? bookData.volumeInfo.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
   this.description = bookData.volumeInfo.description;
 }
 app.get('*', notFoundHandler); 
