@@ -14,8 +14,24 @@
             Best Books!
         </h1>
     </header>
+    <main>
+        <a href="/searches/new"><h1>Search</h1></a>
+        <section> 
+             <% booksArr.forEach(item=>{ %>
+                <div>
+                    
+                    <img src="<%= item.image_url %>" alt="" >
+                <h3><%= item.title %></h3>
+                <p><%= item.author %></p>
+                <!-- <p><%= item.isbn %></p>
+                <p><%= item.description %></p> -->
+                <button> <a href="/bookdetails/<%= item.id %>"> Details</a></button>
+            </div>
+            <% }) %>
+        </section>
+    </main>
 
-<a href="/searches/new">Search</a>
+
 
 </body>
 </html>
