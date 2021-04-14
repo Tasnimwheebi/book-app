@@ -10,10 +10,11 @@
 </head>
 <body>
     <section>
+        <% console.log(booksArr) %>
         <% booksArr.forEach(book=>{ %>
             <div>
      
-            <img src="<%= book.cover %>" alt="https://i.imgur.com/J5LVHEL.jpg" >
+            <img src="<%= book.image_url %>" alt="" >
             <h3><%= book.title %></h3>
             <p><%= book.author %></p>
     
@@ -21,10 +22,10 @@
         </div>
         <div>
             <form action="/books" method="POST">
-                <input type="hidden" name="image" value="<%= book.cover %>">
+                <input type="hidden" name="image_url" value="<%= book.image_url %>">
                 <input type="hidden" name="title" value="<%= book.title %>">
-                <input type="hidden" name="auther" value="<%= book.author %>">
-                <!-- <input type="hidden" name="date" value="<%= book.date %>"> -->
+                <input type="hidden" name="author" value="<%= book.author %>">
+               
                 <input type="hidden" name="description" value="<%= book.description %>">
                 <button type="submit">Add this book</button>
 
