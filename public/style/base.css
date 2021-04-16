@@ -1,0 +1,58 @@
+@import url('style/layout.css');
+@import url('style/modules.css');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 960px;
+    background-image: url('/Images/galaxy3.jpg') ;
+    background-size: cover;
+
+}
+h1 {
+    color: white;
+    text-align: center;
+    text-shadow:5px 5px 10px silver;
+    
+}
+h2:hover {
+    top: -4px;
+    opacity: 0.6;
+}
+h2 {
+    color: thistle;
+     position: relative;
+        
+
+}
+section {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr ;
+    gap: 40px;
+    padding-left: 40px;
+    
+}
+
+div {
+    border: solid 1px white;
+    align-items: center;
+    justify-content: center;
+    padding-left: 40px;
+    padding-top: 10px;
+    background-color: thistle;
+    box-shadow: 10px 10px 5px rgb(161, 109, 146);
+    border-radius: 4px;
+    position: relative;
+    
+}
+
+div:hover {
+    opacity: 0.6;
+    bottom: 7px;
+}
+
+button {
+    border-radius: 20%;
+}
