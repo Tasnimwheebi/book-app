@@ -2,20 +2,21 @@
 
 require('dotenv').config();
 
-
-
+const methodOverride = require('method-override');
 const express = require('express');
 
 const superagent = require('superagent');
 
 const PORT = process.env.PORT || 3000;
-
+const pg = require('pg');
 const app = express();
+
 app.set('view engine','ejs');
 app.use(express.static('./public'));
 app.use(express.urlencoded({ extended: true }));
-
-const pg = require('pg');
+app.use(methodOverride('_method'));
+app.put('/updateBook/:id',updateBookHandler);
+app.delete('/deletebook/:id',deleteBookHandler);
 
 const client = new pg.Client({
   connectionString: process.env.DATABASE_URL,
@@ -32,13 +33,7 @@ app.get('/searches/new',(req,res)=>{
 });
 app.post('/books',addBookHandler);
 
-
-//error handler
-
-
-
 // Routes handlers:
-
 
 function homeRouteHandler(req, res) {
   let SQL = 'select * from books;';
@@ -60,9 +55,6 @@ function searchHandler (req,res){
   let bookName = req.body.book;
   // console.log('bookname?',req.body);
   let url = `https://www.googleapis.com/books/v1/volumes?q=+in${bookChoice}:${bookName}`;
-  // let url2 = `https://www.googleapis.com/books/v1/volumes?q=${bookName}+inauthour`;
-  // if (req.body.bookChoice === 'title'){ ulrChoice = url;}
-  // else if(req.body.bookChoice === 'author') {ulrChoice = url2;}
   superagent.get(url)
     .then(booksData=>{
       console.log(booksData.body);
@@ -106,6 +98,24 @@ app.get('/bookdetails/:id', (req, res)=>{
     });
 });
 
+function updateBookHandler(req,res){
+  let {author,title,isbn,image_url,description}=req.body;
+  let SQL = 'UPDATE books SET author=$1,title=$2,isbn=$3,image_url=$4,description=$5 WHERE id=$6; ';
+  let safeValues =[author,title,isbn,image_url,description,req.params.id];
+  client.query(SQL,safeValues)
+    .then(()=>{
+      res.redirect(`/bookdetails/${req.params.id}`);
+    });
+
+}
+
+function deleteBookHandler(req,res) {
+  let SQL = `DELETE FROM books WHERE id=$1;`;
+  let value = [req.params.id];
+  client.query(SQL,value)
+   .then(res.redirect('/'));
+}
+
 function notFoundHandler(req, res) {
   res.render('pages/error');
 }
@@ -122,7 +132,7 @@ function Book (bookData){
   this.image_url =( bookData.volumeInfo.imageLinks) ? bookData.volumeInfo.imageLinks.thumbnail : 'https://i.imgur.com/J5LVHEL.jpg';
   this.description = bookData.volumeInfo.description;
 }
-app.get('*', notFoundHandler); 
+app.get('*', notFoundHandler);
 client.connect()
   .then(() => {
     app.listen(PORT, () => console.log(`Listening on port: ${PORT}`));

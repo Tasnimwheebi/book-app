@@ -7,6 +7,7 @@
     <title>Book App</title>
 </head>
 <body>
+    <main>
     <section>
             
                 <div>
@@ -15,8 +16,30 @@
                 <h3> <%= detailsShow.author %> </h3>
                 <p> <%= detailsShow.description %> </p>
                 </div>
+
+                
+         <form action="/deletebook/<%=detailsShow.id%>?_method=delete" method="post">
+            <button>Delete Book</button>
+         </form>
+
+                <button id='updateBtn'>Update</button>
+                <section id='updateForm'>
+                  <h3>Update book From</h3>
+                  <form action="/updateBook/<%=detailsShow.id%>?_method=put" method="post">
+                   <input type="text" name="image_url" value="<%= detailsShow.image_url %>">
+                    <input type="text" name="title" value=' <%= detailsShow.title  %> '>
+                   <input type="text" name="author" value="<%= detailsShow.author  %>">
+                   <input type="text" name="isbn" value="<%= detailsShow.isbn %>">
+                   <textarea name="description" cols="30" rows="10"><%= detailsShow.description  %></textarea>
+                   
+                   
+                   <button type="submit">Update book</button>
                 
             </section>
             <button><a href="/"> Back to home page </a></button>
-</body>
+ </main>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ <script src="/app.js"></script>
+        </body>
+
 </html>

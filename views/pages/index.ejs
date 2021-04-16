@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/reset.css">
-    <link rel="stylesheet" href="styles/base.css">
+    <!-- <link rel="stylesheet" href="style/reset.css"> -->
+    <link rel="stylesheet" href="style/base.css">
     <title>Book APP</title>
 </head>
 <body>
@@ -15,7 +15,7 @@
         </h1>
     </header>
     <main>
-        <a href="/searches/new"><h1>Search</h1></a>
+        <a href="/searches/new"><h2>Search</h2></a>
         <section> 
              <% booksArr.forEach(item=>{ %>
                 <div>
@@ -25,6 +25,11 @@
                 <p><%= item.author %></p>
                
                 <button> <a href="/bookdetails/<%= item.id %>"> Details</a></button>
+               
+                <form action="/deletebook/<%=item.id%>?_method=delete" method="post">
+                    <button id="btDelete">Delete Book</button>
+                 </form>
+        
             </div>
             <% }) %>
         </section>
